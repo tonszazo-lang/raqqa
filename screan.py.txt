@@ -1,0 +1,15 @@
+# screens.py
+sections = [
+    {"icon": "💞", "name": "المشاعر", "id": "mashaer"},
+    {"icon": "🌸", "name": "فقه النساء", "id": "fiqh"},
+    {"icon": "💋", "name": "العلاقات الحميمية", "id": "relations"},
+    {"icon": "💗", "name": "الصحة", "id": "health"},
+    {"icon": "🤍", "name": "المجتمع", "id": "community"}
+]
+
+def generate_section_buttons():
+    html = "<div class='sections'>\n"
+    for s in sections:
+        html += f"<button id='{s['id']}' class='section-btn'>{s['icon']} {s['name']}</button>\n"
+    html += "</div>\n"
+    return html
