@@ -1,0 +1,33 @@
+name: Build APK
+
+on:
+  push:
+    branches:
+      - main  # أو الفرع الذي تريد البناء منه
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install Bubblewrap
+      run: npm install -g @bubblewrap/cli
+
+    - name: Build APK
+      run: |
+        bubblewrap init --manifest https://<YOUR_DEPLOYED_SITE>/manifest.json --force
+        bubblewrap build
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: raqqa-apk
+        path: build/*.apk
