@@ -1,0 +1,34 @@
+# generate_images.py
+import openai
+import os
+import requests
+
+# ضع هنا مفتاح OpenAI الخاص بك
+openai.api_key = "sk-proj-XXXXXXXXXXXXXXXXXXXX"
+
+sections = ["المشاعر", "فقه النساء", "العلاقات الحميمية", "الصحة", "المجتمع"]
+
+output_dir = "static/images/sections/"
+os.makedirs(output_dir, exist_ok=True)
+
+prompt_template = (
+    "Create a professional mobile screen for the '{section}' section of a women's app "
+    "'رِقّة النسائية 💖'. Use soft pinks and light mauve colors, Arabic text with Cairo font, "
+    "top bar with heart logo, circular bottom buttons, modern cute UI, front view."
+)
+
+for section in sections:
+    prompt = prompt_template.format(section=section)
+    response = openai.Image.create(
+        prompt=prompt,
+        n=1,
+        size="512x512"
+    )
+    image_url = response['data'][0]['url']
+
+    img_data = requests.get(image_url).content
+    file_path = os.path.join(output_dir, f"{section}.png")
+    with open(file_path, "wb") as f:
+        f.write(img_data)
+
+    print(f"{section} image saved at {file_path}")
