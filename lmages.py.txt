@@ -4,7 +4,7 @@ import os
 import requests
 
 # ضع هنا مفتاح OpenAI الخاص بك
-openai.api_key = "sk-proj-XXXXXXXXXXXXXXXXXXXX"
+openai.api_key = "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
 
 sections = ["المشاعر", "فقه النساء", "العلاقات الحميمية", "الصحة", "المجتمع"]
 
